@@ -1,7 +1,11 @@
 <div class="card">
 <%= form_with(model: [@post, @post.comments.build ], local: true) do |form| %>
   <div class="card-header">
-      <%= form.hidden_field :commenter, :value => current_user.real_name %>
+      <% if user_signed_in? %>
+      <%= form.hidden_field :commenter, :value =>  current_user.real_name %>
+      <% else %>
+      <%= form.hidden_field :commenter, :value => 'Guest' %>
+      <% end %>
     <h5>
         <%= form.label 'Say something horrible about this post' %>
     </h5>
